@@ -14,7 +14,13 @@ header {
     gap: 20px;
 }
 
+main{
+    padding: 3% 20%;
+}
 
+main p{
+    justify-content: center;
+}
 
 .logo {
     align-self:flex-start;
@@ -26,11 +32,11 @@ header {
 }
 
 nav {
-    align-self: center;
+    align-self: flex-start;
 }
 nav ul {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 80px;
     list-style: none;
     margin: 0px;
