@@ -1,0 +1,21 @@
+# Ambiente e segredos
+.env
+scripts/.env
+
+# Python (script de geração do filmes.json)
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
