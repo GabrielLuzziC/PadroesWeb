@@ -107,3 +107,58 @@ footer p {
         gap: 15px;
     }
 }
+
+/* Estilos para o Grid e Cards do Catalogo */
+.catalogo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.filme-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.filme-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+}
+
+.filme-poster-container {
+    width: 100%;
+    aspect-ratio: 2/3;
+    overflow: hidden;
+}
+
+.filme-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.filme-info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.filme-titulo {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.filme-detalhes, .filme-generos {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #666;
+}
