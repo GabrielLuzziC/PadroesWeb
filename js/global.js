@@ -1,3 +1,5 @@
+"use strict";
+
 // Funções Globais reaproveitadas em várias páginas
 
 /**
@@ -10,6 +12,14 @@ function criarCardFilme(filme) {
     
     const imageUrl = filme.poster_url || "../img/sem-poster.svg";
 
+    // Avaliação e duração (só exibe se houver dado)
+    const avaliacao = filme.avaliacao
+        ? `<span class="filme-avaliacao">★ ${filme.avaliacao}</span>`
+        : "";
+    const duracao = filme.duracao
+        ? `<span class="filme-duracao">${filme.duracao} min</span>`
+        : "";
+
     // Criação dos elementos internos do card
     card.innerHTML = `
         <div class="filme-poster-container">
@@ -18,10 +28,11 @@ function criarCardFilme(filme) {
         <div class="filme-info">
             <h3 class="filme-titulo">${filme.titulo}</h3>
             <p class="filme-detalhes">
-                <span class="filme-ano">${filme.ano}</span> 
+                <span class="filme-ano">${filme.ano}</span>
                 ${filme.diretor ? `• <span class="filme-diretor">${filme.diretor}</span>` : ""}
             </p>
             <p class="filme-generos">${filme.genero ? filme.genero.join(", ") : ""}</p>
+            <p class="filme-meta-card">${avaliacao}${duracao}</p>
         </div>
     `;
     

@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Indicações - Cine Brasilis</title>
-    <link rel = "stylesheet" href = "../style/global.css">
+    <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+    <link rel="stylesheet" href="../style/global.css">
+    <link rel="stylesheet" href="../style/catalogo.css">
+    <link rel="stylesheet" href="../style/indicacoes.css">
 </head>
 <body>
     <header>
@@ -12,44 +15,49 @@
             <img src="../img/logo.svg" alt="Cine Brasilis" style="height:60px;">
             <h1>Cine Brasilis</h1>
         </div>
-        
+
         <nav>
             <ul>
                 <li><a href="home.html">Início</a></li>
                 <li><a href="destaques.html">Destaques</a></li>
-                <li><a href="indicacoes.html" class = "ativo">Indicações</a></li>
+                <li><a href="indicacoes.html" class="ativo">Indicações</a></li>
                 <li><a href="mapa.html">Mapa</a></li>
                 <li><a href="catalogo.html">Catálogo</a></li>
                 <li><a href="sobre.html">Sobre</a></li>
             </ul>
         </nav>
-
     </header>
 
     <main>
 
-        <section>
+        <section class="secao-bloco">
             <h2>Indicações</h2>
             <p>
-                Descubra filmes brasileiros selecionados com base nos seus gostos.
-                A partir das suas preferências e de obras estrangeiras que você já aprecia,
-                o Cine Brasilis sugere produções nacionais semelhantes - considerando critérios
-                como gênero, estilo narrativo e temas abordados.
+                Selecione até <strong>5 filmes</strong> brasileiros marcantes que você gosta.
+                A partir das suas escolhas, o Cine Brasilis cruza gênero, temas (tags) e época
+                para sugerir outras produções nacionais com a mesma pegada.
+            </p>
+            <p class="indicacoes-passo">
+                <strong>Como funciona:</strong> clique nos pôsteres para marcar seus favoritos e
+                depois toque em <em>Ver recomendações</em>.
             </p>
         </section>
 
-        <section>
-            <h3>Como utilizar</h3>
-            <p>
-                Informe seus interesses e indique filmes estrangeiros que você gosta como referência.
-                Com base nessas informações, serão exibidas sugestões de filmes brasileiros que
-                se alinham ao seu perfil, ajudando você a descobrir a qualidade e diversidade
-                do cinema nacional.
-            </p>
+        <section class="secao-bloco">
+            <h3>Escolha seus favoritos</h3>
+            <div class="selecao-barra">
+                <span id="selecao-contador">0 / 5 selecionados</span>
+                <div class="selecao-acoes">
+                    <button id="btn-limpar-selecao" class="filtro-btn-limpar">Limpar</button>
+                    <button id="btn-recomendar" class="btn-recomendar" disabled>Ver recomendações</button>
+                </div>
+            </div>
+            <div id="pool-grid" class="pool-grid"></div>
         </section>
 
-        <section>
-            <!-- implementação -->
+        <section class="secao-bloco" id="resultados-bloco" style="display:none;">
+            <h3>Recomendados para você</h3>
+            <div id="resultados-grid" class="catalogo-grid"></div>
         </section>
 
     </main>
@@ -64,6 +72,8 @@
         </p>
         <p>UTFPR | 2026</p>
     </footer>
-</body>
+
+    <script src="../js/global.js"></script>
+    <script src="../js/indicacoes.js"></script>
 </body>
 </html>

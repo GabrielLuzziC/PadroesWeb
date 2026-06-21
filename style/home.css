@@ -53,7 +53,49 @@
     color: #666;
 }
 
-/* --- Estilos do Carrossel (Home) --- */
+/* --- Card de contagem do acervo (Home) --- */
+.acervo-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #0a1628, #16213e);
+    color: #fff;
+    border-radius: 12px;
+    padding: 40px 24px;
+    margin-bottom: 24px;
+}
+.acervo-numero {
+    font-size: 3.5rem;
+    font-weight: bold;
+    line-height: 1;
+    color: #FFDF00;
+}
+.acervo-label {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+.acervo-link {
+    margin-top: 14px;
+    display: inline-block;
+    background: #009C3B;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+.acervo-link:hover {
+    background: #00b544;
+}
+
+.explore-lista {
+    line-height: 1.9;
+}
+
+/* --- Estilos do Carrossel (usado em Destaques) --- */
 .carrossel-section {
     margin: 40px 0;
 }
@@ -84,7 +126,7 @@
 }
 
 .carrossel-btn {
-    background-color: var(--cor-principal, #4a5c2f);
+    background-color: var(--cor-acento);
     color: white;
     border: none;
     width: 40px;
@@ -98,7 +140,7 @@
 }
 
 .carrossel-btn:hover {
-    background-color: var(--cor-hover, #65753f);
+    background-color: var(--cor-acento-hover);
 }
 
 @media (max-width: 768px) {

@@ -1,13 +1,51 @@
+:root {
+    /* Paleta derivada da logo (cinema brasileiro) */
+    --cor-marinho:      #0a1628;   /* chrome escuro: navbar, footer */
+    --cor-superficie:   #16213e;   /* superfícies escuras secundárias */
+    --cor-destaque:     #FFDF00;   /* amarelo: hover, números, acento forte */
+    --cor-acento:       #009C3B;   /* verde: links, botões, sucesso */
+    --cor-acento-hover: #00b544;
+    --cor-texto:        #1a1a1a;   /* texto sobre fundo claro */
+    --cor-texto-claro:  #eaeaea;   /* texto sobre chrome escuro */
+    --cor-texto-suave:  #9aa5b1;
+    --cor-borda:        #e6e6e6;
+    --raio-card:        10px;
+
+    /* Tipografia: serifada nos títulos (tom editorial/cinema), sans no corpo */
+    --fonte-titulo: Georgia, "Times New Roman", serif;
+    --fonte-corpo:  Arial, Helvetica, sans-serif;
+}
+
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--fonte-corpo);
     line-height: 1.5;
+    color: var(--cor-texto);
     background-color: rgb(250, 250, 250);
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--fonte-titulo);
+}
+
+/* Avaliação e duração nos cards de filme */
+.filme-meta-card {
+    margin: 4px 0 0;
+    display: flex;
+    gap: 12px;
+    font-size: 0.85rem;
+}
+.filme-avaliacao {
+    color: #b8860b;
+    font-weight: bold;
+}
+.filme-duracao {
+    color: #888;
+}
+
 header {
-    background-color:beige;
+    background-color: var(--cor-marinho);
     padding: 20px 40px;
     display: flex;
     flex-direction: column;
@@ -22,8 +60,22 @@ main p{
     justify-content: center;
 }
 
+/* Container visual reutilizável para separar blocos de conteúdo */
+.secao-bloco {
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.secao-bloco h2,
+.secao-bloco h3 {
+    margin-top: 0;
+}
+
 .logo {
-    align-self: flex-start;
+    align-self: center;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -31,16 +83,16 @@ main p{
 
 .logo h1 {
     margin: 0;
-    color: black;
+    color: #fff;
     font-size: 30px;
 }
 
 nav {
-    align-self: flex-start;
+    align-self: center;
 }
 nav ul {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     gap: 80px;
     list-style: none;
     margin: 0px;
@@ -48,7 +100,7 @@ nav ul {
 }
 
 nav ul li a {
-    color: black;
+    color: var(--cor-texto-claro);
     text-decoration: none;
     font-size: 22px;
     font-weight: bold;
@@ -56,20 +108,20 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    color: blueviolet;
+    color: var(--cor-destaque);
 }
 
 nav ul li a.ativo {
-    color: blueviolet;
-    border-bottom: 3px solid blueviolet;
+    color: var(--cor-destaque);
+    border-bottom: 3px solid var(--cor-destaque);
     padding-bottom: 5px;
 }
 
 footer {
-    background-color: beige;
+    background-color: var(--cor-marinho);
     padding: 20px 40px;
     text-align: center;
-    border-top: 3px solid blueviolet;
+    border-top: 3px solid var(--cor-acento);
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -79,7 +131,7 @@ footer p {
     margin: 0;
     font-size: 14px;
     font-style: italic;
-    color: rgba(0, 0, 0, 0.45);
+    color: rgba(255, 255, 255, 0.55);
 }
 
 @media (max-width: 1024px) {

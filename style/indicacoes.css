@@ -1,0 +1,114 @@
+.indicacoes-passo {
+    color: #555;
+    font-size: 0.95rem;
+}
+
+/* Barra de seleção (contador + ações) */
+.selecao-barra {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+#selecao-contador {
+    font-weight: bold;
+    color: var(--cor-acento);
+}
+.selecao-acoes {
+    display: flex;
+    gap: 10px;
+}
+.btn-recomendar {
+    padding: 9px 20px;
+    background: var(--cor-acento);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, opacity 0.2s;
+}
+.btn-recomendar:hover:not(:disabled) {
+    background: var(--cor-acento-hover);
+}
+.btn-recomendar:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+/* Grade de seleção de favoritos */
+.pool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 16px;
+}
+.selecao-tile {
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.15s;
+}
+.selecao-tile:hover {
+    transform: translateY(-4px);
+}
+.selecao-poster {
+    position: relative;
+    aspect-ratio: 2 / 3;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    border: 3px solid transparent;
+    transition: border-color 0.15s;
+}
+.selecao-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.selecao-check {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--cor-acento);
+    color: #fff;
+    font-size: 16px;
+    line-height: 26px;
+    text-align: center;
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 0.15s, transform 0.15s;
+}
+.selecao-titulo {
+    margin: 6px 0 0;
+    font-size: 0.82rem;
+    color: #333;
+    line-height: 1.2;
+}
+
+/* Estado selecionado */
+.selecao-tile.selecionado .selecao-poster {
+    border-color: var(--cor-acento);
+}
+.selecao-tile.selecionado .selecao-check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Tiles bloqueados ao atingir o limite */
+.selecao-tile.desabilitado {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.resultados-vazio {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #888;
+    padding: 30px 0;
+}

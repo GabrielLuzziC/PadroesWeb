@@ -11,14 +11,14 @@
 }
 
 #mapa-brasil-container {
-    flex: 3;
-    width: 100%;
+    flex: 1 1 58%;
+    min-width: 320px;
     max-width: 700px;
 }
 
 #info-estado-container {
-    flex: 2;
-    width: 100%;
+    flex: 1 1 38%;
+    min-width: 280px;
     position: sticky;
     top: 20px;
     background-color: aliceblue;
@@ -52,9 +52,25 @@
     margin-left: 6px;
 }
 .painel-contagem {
-    margin: 4px 0 16px;
+    margin: 4px 0 8px;
     color: #555;
     font-size: 0.9rem;
+}
+.painel-dica {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #888;
+    font-style: italic;
+}
+
+/* Carrossel de filmes do estado (abaixo do mapa) */
+#filmes-estado-bloco {
+    display: none;
+    margin-top: 24px;
+}
+#filmes-estado-titulo {
+    margin-top: 0;
+    color: #1b5e20;
 }
 .painel-grid {
     display: grid;
@@ -80,22 +96,71 @@
     width: 100%;
     height: auto;
     display: block;
+    overflow: visible;
 }
 
 .estado {
-    fill: #6f9c76; 
-    stroke: #ffffff; 
+    fill: #6f9c76;
+    stroke: #ffffff;
     stroke-width: 0.5px;
     cursor: pointer;
-    transition: fill 0.2s ease;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: fill 0.2s ease, transform 0.2s ease;
 }
 
-.estado:hover {
-    fill: #4caf50; 
+/* Aumenta o estado ao passar o mouse (no path ou no rótulo externo) */
+.estado:hover,
+.estado.estado-hover {
+    fill: #4caf50;
+    transform: scale(1.20);
 }
 
 .estado.ativo {
-    fill: #1b5e20; 
+    fill: #1b5e20;
+}
+
+/* --- Rótulos (siglas) dos estados --- */
+.rotulo-uf {
+    font-family: Arial, sans-serif;
+    font-size: 26px;
+    font-weight: bold;
+    fill: #ffffff;
+    paint-order: stroke;
+    stroke: rgba(0, 0, 0, 0.45);
+    stroke-width: 3px;
+    cursor: pointer;
+    transition: fill 0.2s ease;
+}
+.rotulo-interno {
+    text-anchor: middle;
+    pointer-events: none; /* clique passa para o estado embaixo */
+}
+.rotulo-externo {
+    text-anchor: start;
+    fill: #16213e;
+    stroke: none;
+}
+.rotulo-linha {
+    stroke: #888;
+    stroke-width: 1px;
+    cursor: pointer;
+}
+/* Realce ao passar o mouse ou selecionar */
+.rotulo-interno.rotulo-hover,
+.rotulo-interno.rotulo-ativo {
+    fill: #FFDF00;               /* amarelo: alto contraste sobre o verde */
+    text-decoration: underline;
+}
+.rotulo-externo.rotulo-hover,
+.rotulo-externo.rotulo-ativo {
+    fill: #009C3B;               /* verde da marca: contraste sobre o branco */
+    text-decoration: underline;
+}
+line.rotulo-hover,
+line.rotulo-ativo {
+    stroke: #009C3B;
+    stroke-width: 2px;
 }
 
 @media (max-width: 992px) {

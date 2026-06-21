@@ -1,3 +1,5 @@
+"use strict";
+
 document.addEventListener("DOMContentLoaded", () => {
     carregarDestaques();
 });
@@ -109,22 +111,44 @@ function iniciarDeslize(track, btnAnt, btnProx, filmesLista, renderizarLote, get
         }
 
         const totalItens = track.querySelectorAll(".carrossel-item").length;
-        posicaoAtual = posicaoAtual < totalItens - 1 ? posicaoAtual + 1 : 0;
-        movimentarTrack(track, posicaoAtual);
+        if (posicaoAtual < totalItens - 1) {
+            posicaoAtual++;
+            movimentarTrack(track, posicaoAtual, true);
+        } else {
+            // Chegou ao fim: volta ao início sem animar o rebobinar
+            posicaoAtual = 0;
+            movimentarTrack(track, posicaoAtual, false);
+        }
     });
 
     btnAnt.addEventListener("click", () => {
         const totalItens = track.querySelectorAll(".carrossel-item").length;
-        posicaoAtual = posicaoAtual > 0 ? posicaoAtual - 1 : totalItens - 1;
-        movimentarTrack(track, posicaoAtual);
+        if (posicaoAtual > 0) {
+            posicaoAtual--;
+            movimentarTrack(track, posicaoAtual, true);
+        } else {
+            // Está no início: salta para o fim sem animar
+            posicaoAtual = totalItens - 1;
+            movimentarTrack(track, posicaoAtual, false);
+        }
     });
 }
 
-function movimentarTrack(track, posicaoAtual) {
+function movimentarTrack(track, posicaoAtual, animar) {
     const item = track.querySelector(".carrossel-item");
-    if(!item) return;
+    if (!item) return;
 
-    const larguraCard = item.offsetWidth + 20; 
-    track.style.transform = `translateX(-${posicaoAtual * larguraCard}px)`;
+    const larguraCard = item.offsetWidth + 20;
+
+    if (animar === false) {
+        // Desliga a transição, salta, e religa no próximo frame
+        track.style.transition = "none";
+        track.style.transform = `translateX(-${posicaoAtual * larguraCard}px)`;
+        requestAnimationFrame(() => {
+            track.style.transition = "";
+        });
+    } else {
+        track.style.transform = `translateX(-${posicaoAtual * larguraCard}px)`;
+    }
 }
 

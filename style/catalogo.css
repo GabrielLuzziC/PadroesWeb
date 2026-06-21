@@ -50,7 +50,7 @@
 .filtro-input:focus,
 .filtro-select:focus {
     outline: none;
-    border-color: #4a5c2f;
+    border-color: var(--cor-acento);
 }
 
 .filtro-ator-wrapper {
@@ -208,7 +208,7 @@
 
 .btn-paginacao {
     padding: 10px 20px;
-    background-color: #4a5c2f;
+    background-color: var(--cor-acento);
     color: white;
     border: none;
     border-radius: 5px;
@@ -218,7 +218,7 @@
 }
 
 .btn-paginacao:hover:not(:disabled) {
-    background-color: #65753f;
+    background-color: var(--cor-acento-hover);
 }
 
 .btn-paginacao:disabled {

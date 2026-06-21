@@ -5,6 +5,13 @@
     margin-bottom: 50px;
 }
 
+.carrossel-section {
+    background: #f4f4f0;
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+    padding: 20px 24px;
+}
+
 .carrossel-section h2 {
     font-size: 1.5rem;
     color: #4a5c2f;

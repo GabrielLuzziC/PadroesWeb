@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Cine Brasilis</title>
+    <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
     <link rel="stylesheet" href="../style/global.css">
     <link rel="stylesheet" href="../style/home.css">
 </head>
@@ -28,7 +29,7 @@
 
     <main>
 
-        <section>
+        <section class="secao-bloco">
             <h2>Bem-vindo ao Cine Brasilis</h2>
             <p>
                     O Cine Brasilis é um site dedicado à valorização e divulgação do cinema brasileiro.
@@ -43,25 +44,15 @@
             </p>
         </section>
 
-        <section class="carrossel-section">
-            <h2>Filmes em Destaque</h2>
-            
-            <div class="carrossel-container">
-                <button id="btn-ant" class="carrossel-btn left">❮</button>
-                
-                <div class="carrossel-janela">
-                    <div id="carrossel-track" class="carrossel-track">
-                        <!-- Cards via home.js -->
-                    </div>
-                </div>
-
-                <button id="btn-prox" class="carrossel-btn right">❯</button>
-            </div>
+        <section class="acervo-card">
+            <span class="acervo-numero" id="acervo-contagem">—</span>
+            <span class="acervo-label">produções brasileiras catalogadas</span>
+            <a href="catalogo.html" class="acervo-link">Explorar o catálogo</a>
         </section>
 
-        <section>
+        <section class="secao-bloco">
             <h3>Explore o Cine Brasilis</h3>
-            <ul>
+            <ul class="explore-lista">
                 <li><a href="destaques.html">Destaques</a> - Lançamentos, filmes mais populares e melhor avaliados do cinema nacional.</li>
                 <li><a href="indicacoes.html">Indicações</a> - Sugestões de filmes brasileiros com base nos seus gostos e em obras estrangeiras semelhantes.</li>
                 <li><a href="mapa.html">Mapa</a> - Explore o cinema brasileiro por estado e descubra a diversidade regional das produções nacionais.</li>
