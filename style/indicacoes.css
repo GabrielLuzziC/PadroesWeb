@@ -3,25 +3,91 @@
     font-size: 0.95rem;
 }
 
-/* Barra de seleção (contador + ações) */
-.selecao-barra {
+/* Botão Iniciar */
+.btn-iniciar {
+    margin-top: 8px;
+    padding: 12px 32px;
+    background: var(--cor-acento);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+.btn-iniciar:hover {
+    background: var(--cor-acento-hover);
+}
+.btn-iniciar:active {
+    transform: scale(0.97);
+}
+
+/* ---------------------------------------------------------------------------
+   Modal de seleção
+--------------------------------------------------------------------------- */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+}
+.modal-overlay[hidden] {
+    display: none;
+}
+body.modal-aberto {
+    overflow: hidden; /* trava o scroll do fundo */
+}
+
+.modal-dialog {
+    background: #fff;
+    border-radius: 12px;
+    width: min(960px, 100%);
+    height: 85vh;            /* altura fixa: garante várias fileiras visíveis + scroll */
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Topo fixo do modal (não rola) */
+.modal-topo {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 12px;
-    margin-bottom: 18px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--cor-borda);
+    background: #fff;
+}
+.modal-topo-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.modal-topo-info h3 {
+    margin: 0;
+    font-size: 1.1rem;
 }
 #selecao-contador {
     font-weight: bold;
     color: var(--cor-acento);
+    font-size: 0.9rem;
 }
-.selecao-acoes {
+.modal-topo-acoes {
     display: flex;
+    align-items: center;
     gap: 10px;
 }
+
 .btn-recomendar {
-    padding: 9px 20px;
+    padding: 10px 20px;
     background: var(--cor-acento);
     color: #fff;
     border: none;
@@ -37,6 +103,63 @@
     background: #ccc;
     cursor: not-allowed;
     opacity: 0.8;
+}
+.btn-limpar {
+    padding: 10px 16px;
+    background: transparent;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    color: #666;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+}
+.btn-limpar:hover {
+    border-color: #999;
+    color: #333;
+}
+.btn-fechar {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    color: #666;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+.btn-fechar:hover {
+    background: #eee;
+}
+
+/* Corpo rolável do modal (lista vertical com scroll) */
+.modal-corpo {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+@media (max-width: 600px) {
+    .modal-overlay {
+        padding: 0;
+    }
+    .modal-dialog {
+        width: 100%;
+        max-height: 100vh;
+        height: 100%;
+        border-radius: 0;
+    }
+    .modal-topo {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .modal-topo-acoes {
+        justify-content: space-between;
+    }
+    .btn-recomendar {
+        flex: 1;
+    }
 }
 
 /* Grade de seleção de favoritos */
@@ -117,17 +240,11 @@
     padding: 30px 0;
 }
 
-/* Cabeçalho dos resultados + toggle do racional */
-.resultados-cabecalho {
+/* Toggle do racional (abaixo das indicações) */
+.racional-toggle-wrap {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 12px;
-}
-.resultados-cabecalho h3 {
-    margin: 0;
+    justify-content: center;
+    margin-top: 24px;
 }
 .btn-racional-toggle {
     display: inline-flex;

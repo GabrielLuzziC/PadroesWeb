@@ -27,6 +27,63 @@
     align-items: center;
 }
 
+/* Botão que abre o painel de filtros (mesma estética dos botões verdes do site) */
+.btn-filtros {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: var(--cor-acento);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+}
+.btn-filtros:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+.btn-filtros:active {
+    transform: scale(0.96);
+}
+.btn-filtros.ativo {
+    background-color: var(--cor-acento-hover);
+}
+.icone-funil {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+/* Painel de filtros (oculto até clicar em Filtros) */
+.filtros-painel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 16px;
+    margin-bottom: 16px;
+    padding: 18px;
+    background: #f4f4f0;
+    border: 1px solid var(--cor-borda);
+    border-radius: 10px;
+}
+.filtros-painel[hidden] {
+    display: none;
+}
+/* Cada filtro ocupa a largura total da sua célula do grid */
+.filtros-painel .filtro-input,
+.filtros-painel .filtro-select,
+.filtros-painel .filtro-ator-wrapper {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    margin: 0;
+}
+
 .filtro-input,
 .filtro-select,
 .filtro-btn-limpar {

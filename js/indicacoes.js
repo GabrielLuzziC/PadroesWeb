@@ -33,26 +33,57 @@ async function iniciar() {
         renderizarPool();
         atualizarBarra();
 
+        document.getElementById("btn-iniciar").addEventListener("click", abrirModal);
+        document.getElementById("btn-fechar-modal").addEventListener("click", fecharModal);
         document.getElementById("btn-recomendar").addEventListener("click", gerarRecomendacoes);
         document.getElementById("btn-limpar-selecao").addEventListener("click", limparSelecao);
         document.getElementById("btn-racional").addEventListener("click", alternarRacional);
+
+        // Fecha o modal ao clicar no fundo ou apertar Esc
+        document.getElementById("selecao-modal").addEventListener("click", e => {
+            if (e.target.id === "selecao-modal") fecharModal();
+        });
+        document.addEventListener("keydown", e => {
+            if (e.key === "Escape") fecharModal();
+        });
     } catch (erro) {
         console.error("Erro ao carregar bases de filmes:", erro);
     }
 }
 
 // ---------------------------------------------------------------------------
-// Seleção (filmes internacionais)
+// Modal de seleção
+// ---------------------------------------------------------------------------
+
+function abrirModal() {
+    const modal = document.getElementById("selecao-modal");
+    modal.hidden = false;
+    document.body.classList.add("modal-aberto");
+}
+
+function fecharModal() {
+    const modal = document.getElementById("selecao-modal");
+    modal.hidden = true;
+    document.body.classList.remove("modal-aberto");
+}
+
+// ---------------------------------------------------------------------------
+// Seleção (todos os filmes internacionais numa lista rolável)
 // ---------------------------------------------------------------------------
 
 function renderizarPool() {
     const grid = document.getElementById("pool-grid");
+    if (!grid) return;
     grid.innerHTML = "";
+
+    const limiteAtingido = selecionados.size >= MAX_SELECAO;
 
     poolFilmes.forEach(filme => {
         const tile = document.createElement("div");
         tile.className = "selecao-tile";
         tile.dataset.id = filme.id;
+        if (selecionados.has(filme.id)) tile.classList.add("selecionado");
+        else if (limiteAtingido) tile.classList.add("desabilitado");
 
         const poster = filme.poster_url || "../img/sem-poster.svg";
         const ano = filme.ano ? `<span class="selecao-ano">${filme.ano}</span>` : "";
@@ -80,28 +111,30 @@ function alternarSelecao(id, tile) {
         tile.classList.add("selecionado");
     }
     atualizarBarra();
+    atualizarEstadoTiles();
 }
 
 function atualizarBarra() {
     const contador = document.getElementById("selecao-contador");
     const botao    = document.getElementById("btn-recomendar");
-    contador.textContent = `${selecionados.size} / ${MAX_SELECAO} selecionados`;
-    botao.disabled = selecionados.size === 0;
+    if (contador) contador.textContent = `${selecionados.size} / ${MAX_SELECAO} selecionados`;
+    if (botao) botao.disabled = selecionados.size === 0;
+}
 
+// Esmaece os tiles não selecionados quando o limite é atingido (na página atual)
+function atualizarEstadoTiles() {
     const limiteAtingido = selecionados.size >= MAX_SELECAO;
     document.querySelectorAll(".selecao-tile").forEach(t => {
-        const cheio = limiteAtingido && !t.classList.contains("selecionado");
-        t.classList.toggle("desabilitado", cheio);
+        const selecionado = selecionados.has(t.dataset.id);
+        t.classList.toggle("desabilitado", limiteAtingido && !selecionado);
     });
 }
 
 function limparSelecao() {
     selecionados.clear();
-    document.querySelectorAll(".selecao-tile").forEach(t =>
-        t.classList.remove("selecionado", "desabilitado")
-    );
     atualizarBarra();
-    document.getElementById("resultados-bloco").style.display = "none";
+    atualizarEstadoTiles();
+    document.querySelectorAll(".selecao-tile").forEach(t => t.classList.remove("selecionado"));
 }
 
 // ---------------------------------------------------------------------------
@@ -190,6 +223,7 @@ function gerarRecomendacoes() {
         )
         .slice(0, 12);
 
+    fecharModal();
     renderizarResultados(ultimasRecomendacoes);
 }
 

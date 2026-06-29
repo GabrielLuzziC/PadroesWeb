@@ -22,6 +22,7 @@ async function carregarFilmes() {
         todosAtores = [...new Set(todosFilmes.flatMap(f => f.elenco || []))].sort();
 
         popularFiltroGeneros();
+        popularFiltroEstados();
         renderizarPagina(paginaAtual);
         configurarFiltros();
     } catch (error) {
@@ -47,23 +48,58 @@ function popularFiltroGeneros() {
     });
 }
 
+function popularFiltroEstados() {
+    const estadosUnicos = [...new Set(
+        todosFilmes.map(f => f.estado).filter(Boolean)
+    )].sort();
+
+    const select = document.getElementById("filtro-estado");
+    estadosUnicos.forEach(estado => {
+        const option = document.createElement("option");
+        option.value = estado;
+        option.textContent = estado;
+        select.appendChild(option);
+    });
+}
+
+// Remove acentos de uma string (NFD + corte das marcas diacríticas)
+function semAcento(texto) {
+    return texto.normalize("NFD").replace(/[̀-ͯ]/g, "");
+}
+
 function aplicarFiltros() {
-    const busca  = document.getElementById("filtro-busca").value.toLowerCase().trim();
-    const genero = document.getElementById("filtro-genero").value;
-    const decada = document.getElementById("filtro-decada").value;
-    const atores = document.getElementById("filtro-ator").value
+    const busca    = document.getElementById("filtro-busca").value.toLowerCase().trim();
+    const genero   = document.getElementById("filtro-genero").value;
+    const decada   = document.getElementById("filtro-decada").value;
+    const metragem = document.getElementById("filtro-metragem").value;
+    const estado   = document.getElementById("filtro-estado").value;
+    const diretor  = document.getElementById("filtro-diretor").value.toLowerCase().trim();
+    const atores   = document.getElementById("filtro-ator").value
         .split(",")
         .map(a => a.trim().toLowerCase())
         .filter(a => a.length > 0);
 
+    // Acento assimétrico: busca SEM acento ignora acentos do título ("pao" acha "Pão");
+    // busca COM acento é exata ("pão" não acha "Pao").
+    const buscaTemAcento = busca !== semAcento(busca);
+
     filmesFiltrados = todosFilmes.filter(filme => {
-        const casaBusca  = !busca  || filme.titulo.toLowerCase().includes(busca);
-        const casaGenero = !genero || (filme.genero && filme.genero.includes(genero));
-        const casaDecada = !decada || (filme.ano && Math.floor(filme.ano / 10) * 10 === Number(decada));
-        const casaAtores = atores.length === 0 || atores.every(ator =>
+        let casaBusca = !busca;
+        if (busca) {
+            const titulo = filme.titulo.toLowerCase();
+            casaBusca = buscaTemAcento
+                ? titulo.includes(busca)
+                : semAcento(titulo).includes(busca);
+        }
+        const casaGenero   = !genero   || (filme.genero && filme.genero.includes(genero));
+        const casaDecada   = !decada   || (filme.ano && Math.floor(filme.ano / 10) * 10 === Number(decada));
+        const casaMetragem = !metragem || filme.metragem === metragem;
+        const casaEstado   = !estado   || filme.estado === estado;
+        const casaDiretor  = !diretor  || (filme.diretor && filme.diretor.toLowerCase().includes(diretor));
+        const casaAtores   = atores.length === 0 || atores.every(ator =>
             filme.elenco && filme.elenco.some(e => e.toLowerCase().includes(ator))
         );
-        return casaBusca && casaGenero && casaDecada && casaAtores;
+        return casaBusca && casaGenero && casaDecada && casaMetragem && casaEstado && casaDiretor && casaAtores;
     });
 
     paginaAtual = 1;
@@ -83,6 +119,9 @@ function configurarFiltros() {
     document.getElementById("filtro-busca").addEventListener("input", debounce(aplicarFiltros, 300));
     document.getElementById("filtro-genero").addEventListener("change", aplicarFiltros);
     document.getElementById("filtro-decada").addEventListener("change", aplicarFiltros);
+    document.getElementById("filtro-metragem").addEventListener("change", aplicarFiltros);
+    document.getElementById("filtro-estado").addEventListener("change", aplicarFiltros);
+    document.getElementById("filtro-diretor").addEventListener("input", debounce(aplicarFiltros, 300));
     document.getElementById("filtro-ator").addEventListener("input", debounce(() => {
         mostrarSugestoes();
         aplicarFiltros();
@@ -92,10 +131,23 @@ function configurarFiltros() {
         setTimeout(() => fecharSugestoes(), 150);
     });
 
+    // Botão que abre/fecha o painel de filtros
+    document.getElementById("btn-filtros").addEventListener("click", () => {
+        const painel = document.getElementById("filtros-painel");
+        const botao  = document.getElementById("btn-filtros");
+        const aberto = !painel.hidden;
+        painel.hidden = aberto;
+        botao.setAttribute("aria-expanded", String(!aberto));
+        botao.classList.toggle("ativo", !aberto);
+    });
+
     document.getElementById("filtro-limpar").addEventListener("click", () => {
         document.getElementById("filtro-busca").value = "";
         document.getElementById("filtro-genero").value = "";
         document.getElementById("filtro-decada").value = "";
+        document.getElementById("filtro-metragem").value = "";
+        document.getElementById("filtro-estado").value = "";
+        document.getElementById("filtro-diretor").value = "";
         document.getElementById("filtro-ator").value = "";
         filmesFiltrados = todosFilmes;
         paginaAtual = 1;

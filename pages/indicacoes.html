@@ -30,39 +30,51 @@
 
     <main>
 
-        <section class="secao-bloco">
+        <section class="secao-bloco indicacoes-intro">
             <h2>Indicações</h2>
             <p>
-                Selecione até <strong>5 filmes internacionais</strong> que você gosta.
+                Escolha até <strong>5 filmes internacionais</strong> que você gosta.
                 A partir das suas escolhas, o Cine Brasilis cruza gênero, temas (tags) e época
                 para sugerir <strong>produções brasileiras</strong> com a mesma pegada.
             </p>
             <p class="indicacoes-passo">
-                <strong>Como funciona:</strong> clique nos pôsteres dos filmes internacionais para
-                marcar seus favoritos e depois toque em <em>Ver recomendações</em>.
+                <strong>Como funciona:</strong> toque em <em>Iniciar</em>, marque seus favoritos
+                e gere as recomendações.
             </p>
+            <button id="btn-iniciar" class="btn-iniciar" type="button">Iniciar</button>
         </section>
 
-        <section class="secao-bloco">
-            <h3>Escolha filmes internacionais que você curte</h3>
-            <div class="selecao-barra">
-                <span id="selecao-contador">0 / 5 selecionados</span>
-                <div class="selecao-acoes">
-                    <button id="btn-limpar-selecao" class="filtro-btn-limpar">Limpar</button>
-                    <button id="btn-recomendar" class="btn-recomendar" disabled>Ver recomendações</button>
+        <!-- Modal de seleção de filmes -->
+        <div id="selecao-modal" class="modal-overlay" hidden>
+            <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+                <header class="modal-topo">
+                    <div class="modal-topo-info">
+                        <h3 id="modal-titulo">Escolha seus filmes favoritos</h3>
+                        <span id="selecao-contador">0 / 5 selecionados</span>
+                    </div>
+                    <div class="modal-topo-acoes">
+                        <button id="btn-limpar-selecao" class="btn-limpar" type="button">Limpar</button>
+                        <button id="btn-recomendar" class="btn-recomendar" type="button" disabled>Gerar indicações</button>
+                        <button id="btn-fechar-modal" class="btn-fechar" type="button" aria-label="Fechar">✕</button>
+                    </div>
+                </header>
+
+                <div class="modal-corpo">
+                    <div id="pool-grid" class="pool-grid"></div>
                 </div>
             </div>
-            <div id="pool-grid" class="pool-grid"></div>
-        </section>
+        </div>
 
+        <!-- Resultados -->
         <section class="secao-bloco" id="resultados-bloco" style="display:none;">
-            <div class="resultados-cabecalho">
-                <h3>Recomendados para você</h3>
+            <h3>Recomendados para você</h3>
+            <div id="resultados-grid" class="catalogo-grid"></div>
+
+            <div class="racional-toggle-wrap">
                 <button id="btn-racional" class="btn-racional-toggle" type="button" aria-expanded="false" aria-controls="racional-painel">
                     <span class="racional-label">Mostrar racional</span>
                 </button>
             </div>
-            <div id="resultados-grid" class="catalogo-grid"></div>
             <div id="racional-painel" class="racional-painel" style="display:none;"></div>
         </section>
 

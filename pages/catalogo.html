@@ -43,6 +43,16 @@
                 placeholder="Buscar por título..."
                 autocomplete="off"
             >
+            <button id="btn-filtros" class="btn-filtros" type="button" aria-expanded="false" aria-controls="filtros-painel">
+                <svg class="icone-funil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                </svg>
+                <span>Filtros</span>
+            </button>
+            <button id="filtro-limpar" class="filtro-btn-limpar">Limpar filtros</button>
+        </section>
+
+        <div id="filtros-painel" class="filtros-painel" hidden>
             <select id="filtro-genero" class="filtro-select">
                 <option value="">Todos os gêneros</option>
             </select>
@@ -58,6 +68,22 @@
                 <option value="2010">2010s</option>
                 <option value="2020">2020s</option>
             </select>
+            <select id="filtro-metragem" class="filtro-select">
+                <option value="">Todas as metragens</option>
+                <option value="Curta">Curta (até 15 min)</option>
+                <option value="Média">Média (15 a 70 min)</option>
+                <option value="Longa">Longa (acima de 70 min)</option>
+            </select>
+            <select id="filtro-estado" class="filtro-select">
+                <option value="">Todos os estados</option>
+            </select>
+            <input
+                type="text"
+                id="filtro-diretor"
+                class="filtro-input"
+                placeholder="Buscar por diretor..."
+                autocomplete="off"
+            >
             <div class="filtro-ator-wrapper">
                 <input
                     type="text"
@@ -68,8 +94,7 @@
                 >
                 <ul id="ator-sugestoes" class="ator-sugestoes"></ul>
             </div>
-            <button id="filtro-limpar" class="filtro-btn-limpar">Limpar filtros</button>
-        </section>
+        </div>
 
         <p id="catalogo-contagem" class="catalogo-contagem"></p>
         <div id="catalogo-grid" class="catalogo-grid"></div>
