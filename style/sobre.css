@@ -26,6 +26,16 @@
     border-radius: 50%;
 }
 
-.linkedin-link img {
+.linkedin-link, .github-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    margin-bottom: 15px;
+}
+
+.linkedin-link img, .github-link img {
     height: 30px;
+    margin: 0 5px;
+    display: block;
 }
